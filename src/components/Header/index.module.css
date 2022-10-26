@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #dbdbdb;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+.header button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
