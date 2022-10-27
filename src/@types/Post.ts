@@ -3,6 +3,5 @@ export type PostType = {
   username: string;
   title: string;
   likes: number;
-  isLiked: boolean;
   postedAt: Date;
 }

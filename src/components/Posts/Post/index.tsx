@@ -4,7 +4,7 @@ import LikeIcon from "../../LikeIcon";
 import { PostType } from "../../../@types/Post";
 
 const Post: FC<{ post: PostType }> = ({ post }) => {
-  const [isLiked, setIsLiked] = useState(post.isLiked);
+  const [isLiked, setIsLiked] = useState(post.likes > 0);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
