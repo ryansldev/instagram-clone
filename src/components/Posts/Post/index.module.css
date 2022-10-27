@@ -43,6 +43,7 @@
 
 .image {
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   min-height: 400px;
   width: 100%;
@@ -50,11 +51,17 @@
 
 @media (max-width: 420px) {
   .image {
+    min-height: 370px;
+  }
+}
+
+@media (max-width: 370px) {
+  .image {
     min-height: 350px;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 330px) {
   .image {
     min-height: 300px;
   }
