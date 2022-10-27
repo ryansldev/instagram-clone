@@ -2,12 +2,13 @@ import { FC, useState } from "react";
 import styles from "./index.module.css";
 import LikeIcon from "../../LikeIcon";
 import { PostType } from "../../../@types/Post";
+import { database, ref, set } from "../../../services/firebase";
 
 const Post: FC<{ post: PostType }> = ({ post }) => {
-  const [isLiked, setIsLiked] = useState(post.likes > 0);
-
   const handleLike = () => {
-    setIsLiked(!isLiked);
+    const postRef = ref(database, `posts/${post.id}`);
+    const newPost = {...post, likes: post.likes + 1}
+    set(postRef, newPost);
   }
 
   return (
@@ -25,7 +26,7 @@ const Post: FC<{ post: PostType }> = ({ post }) => {
       <div className={styles.content}>
         <div className={styles.actions}>
           <button type="button" onClick={handleLike}>
-            <LikeIcon isLiked={isLiked} />
+            <LikeIcon isLiked={post.likes > 0} />
           </button>
           <span>{post.likes} {post.likes > 1 || post.likes === 0 ? "Curtidas" : "Curtida" }</span>
         </div>
