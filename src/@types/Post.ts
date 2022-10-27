@@ -1,3 +1,8 @@
+type Comment = {
+  author: string;
+  content: string;
+}
+
 export type PostType = {
   id?: string;
   author: string;
@@ -6,4 +11,5 @@ export type PostType = {
   likes: number;
   photo: string;
   postedAt: Date;
+  comments?: Comment[];
 }

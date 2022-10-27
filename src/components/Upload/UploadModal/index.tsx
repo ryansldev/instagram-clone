@@ -58,15 +58,15 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const { author, title } = e.target;
-    const username = getUsername(author.value);
+    const username = getUsername(author.value.trim());
 
     const postRef = ref(database, "posts");
     const newPostKey: string | null = push(child(postRef, 'posts')).key;
     if(!newPostKey) return;
     const postData = {
       id: newPostKey,
-      author: author.value,
-      title: title.value,
+      author: author.value.trim(),
+      title: title.value.trim(),
       username,
       photo,
       likes: 0,
