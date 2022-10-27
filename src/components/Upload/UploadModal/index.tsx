@@ -82,7 +82,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
               { photo.length === 0 ? "Fique com gatinhos já que não enviou nada" : "Veja o preview do post:" }
             </p>
             { photo.length === 0 ? (
-              <Image alt="Anya Forger" src="/assets/nothing.gif" width={250} height={250} />
+              <Image alt="No uploaded photo" src="/assets/nothing.gif" width={250} height={250} />
             ) : (
               <div className={styles.preview} style={{ backgroundImage: `url(${photo})`}}></div>
             )}
