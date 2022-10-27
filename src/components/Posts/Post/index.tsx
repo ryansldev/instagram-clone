@@ -15,7 +15,7 @@ const Post: FC<{ post: PostType }> = ({ post }) => {
       <div className={styles.author}>
         <span>Postado por <strong>{post.author}</strong></span>
       </div>
-      <div className={styles.image}></div>
+      <div className={styles.image} style={{ backgroundImage: `url(${post.photo})`}}></div>
       <div className={styles.content}>
         <div className={styles.actions}>
           <button type="button" onClick={handleLike}>

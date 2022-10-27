@@ -1,7 +1,35 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import { PostType } from '../@types/Post';
 import Posts from '../components/Posts'
+import { database, ref, onValue } from "../services/firebase";
+
+type FirebasePosts = Record<string, PostType>;
 
 export default function Home() {
+  const [posts, setPosts] = useState<PostType[]>([]);
+  useEffect(() => {
+    const postsRef = ref(database, 'posts');
+    onValue(postsRef, (snapshot) => {
+      const data: FirebasePosts = snapshot.val();
+      if(data) {
+        const parsedData: PostType[] = Object.entries(data).map(([key, value]) => {
+          return {
+            id: key,
+            author: value.author,
+            username: value.username,
+            title: value.title,
+            photo: value.photo,
+            likes: value.likes,
+            postedAt: value.postedAt,
+          }
+        });
+
+        setPosts(parsedData);
+      }
+    });
+  }, []);
+
   return (
     <main>
       <Head>
@@ -12,24 +40,7 @@ export default function Home() {
 
       <div>
         <Posts
-          posts={[
-            {
-              author: "Diego Fernandes",
-              username: "diegofernandes",
-              title: "Test post",
-              likes: 2,
-              postedAt: new Date(),
-              isLiked: false,
-            },
-            {
-              author: "Mayk Brito",
-              username: "maykbrito",
-              title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae tempor odio. Nunc iaculis malesuada iaculis. Proin in mauris ac velit auctor lacinia vitae id magna. Suspendisse et ornare tellus. Cras sit amet posuere ante. Ut cursus id mauris vel euismod. Nullam eu lectus sollicitudin tellus feugiat mattis.",
-              likes: 5,
-              postedAt: new Date(),
-              isLiked: true,
-            }
-          ]}
+          posts={posts}
         />
       </div>
     </main>

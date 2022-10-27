@@ -3,6 +3,8 @@ import { Dialog } from '@headlessui/react';
 import styles from "./index.module.css";
 import PlusIcon from "../../PlusIcon";
 import Image from "next/image";
+import { getUsername } from "../../../utils/getUsername";
+import { database, push, ref, update, child } from "../../../services/firebase";
 
 type UploadModalProps = {
   isUploadModalOpen: boolean;
@@ -52,6 +54,30 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
         console.log(err);
       });
   };
+
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    const { author, title } = e.target;
+    const username = getUsername(author.value);
+
+    const postRef = ref(database, "posts");
+    const newPostKey: string | null = push(child(postRef, 'posts')).key;
+    if(!newPostKey) return;
+    const postData = {
+      id: newPostKey,
+      author: author.value,
+      title: title.value,
+      username,
+      photo,
+      likes: 0,
+      postedAt: new Date(),
+    }
+    const updates: any = {};
+    updates[newPostKey] = postData;
+
+    update(postRef, updates);
+    setIsUploadModalOpen(false);
+  }
   
   return (
     <>
@@ -62,20 +88,20 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
             Faça o upload da foto e dê algumas informações para publicar seu post!
           </Dialog.Description>
 
-          <form className={styles.uploadForm}>
+          <form onSubmit={onSubmit} className={styles.uploadForm}>
             <label>
               <strong>Nome</strong>
-              <input type="text" placeholder="Anya Forger" />
+              <input name="author" type="text" placeholder="Anya Forger" />
             </label>
 
             <label>
               <strong>Título</strong>
-              <input type="text" placeholder="Minduim" />
+              <input name="title" type="text" placeholder="Minduim" />
             </label>
 
             <label>
               <span style={{ margin: "0.5em 0" }}>Tamanho recomendado: 1080x1080</span>
-              <input type="file" accept="image/*" onChange={changePhoto} />
+              <input  type="file" accept="image/*" onChange={changePhoto} />
             </label>
 
             <p>
@@ -88,7 +114,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
             )}
 
             <div className={styles.actionButtons}>
-              <button type="submit" className={styles.uploadButton} onClick={() => setIsUploadModalOpen(false)}>
+              <button type="submit" className={styles.uploadButton}>
                 <PlusIcon fill="#f7f5f5" color="f7f5f5" />
                 UPLOAD
               </button>
