@@ -1,6 +1,6 @@
 import Link from "next/link";
 import InstagramLogo from "../InstagramLogo";
-import PlusIcon from "../PlusIcon";
+import UploadButton from "../Upload/UploadButton";
 import styles from "./index.module.css";
 
 const Header = () => {
@@ -9,9 +9,7 @@ const Header = () => {
       <Link passHref href="/">
         <InstagramLogo />
       </Link>
-      <button type="button">
-        <PlusIcon />
-      </button>
+      <UploadButton />
     </header>
   )
 }
