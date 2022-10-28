@@ -5,6 +5,8 @@ import PlusIcon from "../../PlusIcon";
 import Image from "next/image";
 import { getUsername } from "../../../utils/getUsername";
 import { database, push, ref, update, child } from "../../../services/firebase";
+import FilesIcon from "./FilesIcon";
+import XIcon from "../../XIcon";
 
 type UploadModalProps = {
   isUploadModalOpen: boolean;
@@ -13,15 +15,12 @@ type UploadModalProps = {
 
 const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModalOpen }) => {
   const [photo, setPhoto] = useState("");
+  const [step, setStep] = useState(1);
 
-  useEffect(() => {
-    const header: any = document.querySelector("header")!;
-    if(isUploadModalOpen) {
-      header.style.display = "none";
-    } else {
-      header.style.display = "flex";
-    }
-  }, [isUploadModalOpen]);
+  const handleClose = () => {
+    setStep(1);
+    setIsUploadModalOpen(false);
+  }
 
   const getBase64 = (file: any) => {
     return new Promise(resolve => {
@@ -53,13 +52,15 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
       .catch(err => {
         console.log(err);
       });
+    
+    setStep(step+1)
   };
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const { author, title } = e.target;
     if(!author.value) {
-      alert("Você colocar seu nome no post!");
+      alert("Você deve colocar seu nome no post!");
       return;
     }
     const username = getUsername(author.value.trim());
@@ -81,52 +82,61 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
     updates[newPostKey] = postData;
 
     update(postRef, updates);
-    setIsUploadModalOpen(false);
+    handleClose();
   }
   
   return (
     <>
-      <Dialog className={styles.modal} open={isUploadModalOpen} onClose={() => setIsUploadModalOpen(false)}>
+      <Dialog className={styles.modal} open={isUploadModalOpen} onClose={handleClose}>
         <Dialog.Panel className={styles.container}>
-          <Dialog.Title>Enviar post</Dialog.Title>
+          <Dialog.Title style={{ display: "flex", justifyContent: "space-between", textAlign: "center", fontSize: "1.175rem", borderBottom: "1px solid #efefef", paddingBottom: "1.5em", color: "#262626", fontWeight: "500" }}>
+            Criar nova publicação
+            <button type="button" className={styles.closeButton} onClick={handleClose}>
+              <XIcon />
+            </button>
+          </Dialog.Title>
           <Dialog.Description>
-            Faça o upload da foto e dê algumas informações para publicar seu post!
           </Dialog.Description>
 
           <form onSubmit={onSubmit} className={styles.uploadForm}>
-            <label>
-              <strong>Nome</strong>
-              <input name="author" type="text" placeholder="Anya Forger" />
-            </label>
+            {step === 1 &&
+              <section>
+                <FilesIcon />
+                <span>Arraste os fotos e os vídeos aqui</span>
+                <label className={styles.button}>
+                  Selecionar sua foto/vídeo
+                  <input className={styles.fileInput} type="file" accept="image/*" onChange={changePhoto} />
+                </label>
+              </section>
+            }
+            {step === 2 &&
+              <section style={{ display: "block", textAlign: "center" }}>
+                <p>
+                  Veja o preview da imagem
+                </p>
+                <div className={styles.preview} style={{ backgroundImage: `url(${photo})`}}></div>
+                <button type="button" className={styles.button} onClick={() => setStep(step+1)}>Está perfeito</button>
+              </section>
+            }
+            { step === 3 &&
+              <section>
+                <label style={{ width: "100%", maxWidth: "500px" }}>
+                  <strong>Nome</strong>
+                  <input name="author" type="text" placeholder="Anya Forger" />
+                </label>
 
-            <label>
-              <strong>Título</strong>
-              <input name="title" type="text" placeholder="Minduim" />
-            </label>
+                <label style={{ width: "100%", maxWidth: "500px" }}>
+                  <strong>Título</strong>
+                  <input name="title" type="text" placeholder="Minduim" />
+                </label>
 
-            <label>
-              <span style={{ margin: "0.5em 0" }}>Tamanho recomendado: 1080x1080</span>
-              <input  type="file" accept="image/*" onChange={changePhoto} />
-            </label>
-
-            <p>
-              { photo.length === 0 ? "Fique com gatinhos já que não enviou nada" : "Veja o preview do post:" }
-            </p>
-            { photo.length === 0 ? (
-              <Image alt="No uploaded photo" src="/assets/nothing.gif" width={250} height={250} />
-            ) : (
-              <div className={styles.preview} style={{ backgroundImage: `url(${photo})`}}></div>
-            )}
-
-            <div className={styles.actionButtons}>
-              <button type="submit" className={styles.uploadButton}>
-                <PlusIcon fill="#f7f5f5" color="f7f5f5" />
-                UPLOAD
-              </button>
-              <button type="button" className={styles.closeButton} onClick={() => setIsUploadModalOpen(false)}>
-                FECHAR
-              </button>
-            </div>
+                <div className={styles.actionButtons}>
+                  <button type="submit" className={styles.uploadButton}>
+                    Enviar
+                  </button>
+                </div>
+              </section>
+            }
           </form>
         </Dialog.Panel>
       </Dialog>

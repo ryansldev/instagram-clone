@@ -11,14 +11,22 @@
 
 .container {
   width: 100%;
-  max-width: 600px;
-  max-height: 500px;
+  max-width: 750px;
+  height: 95vh;
+  max-height: 800px;
   padding: 1em 2em;
   border-radius: .8vw;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  position: relative;
   overflow-y: scroll;
+}
+
+.uploadForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 73%;
+  width: 100%;
 }
 
 .uploadForm label {
@@ -32,6 +40,24 @@
   padding: 0.875em 1em;
 }
 
+.uploadForm section {
+  height: 100%;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.uploadForm span {
+  color: #262626;
+  font-weight: 200;
+  font-size: 1.5rem;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+}
+
 .actionButtons {
   display: flex;
   flex-wrap: wrap;
@@ -39,48 +65,79 @@
 }
 
 .uploadButton {
-  margin-top: 1em;
-  background: #fafafa;
-  border: none;
+  color: #fff;
+  background: #0095f6;
+  font-weigth: 700;
   font-size: 0.875rem;
-  background: linear-gradient(90deg, #C530A2, #FF6538);
-  color: #f7f5f5;
-  padding: 0.875em 1.5em;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+  max-width: 180px;
+  border-radius: 4px;
+
   display: flex;
-  align-items: center;
   gap: 0.875em;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  cursor: pointer;
+  margin-top: 1em;
+  border: none;
+  margin: 1em auto;
 }
 
 .closeButton {
-  margin-top: 1em;
-  background: #fafafa;
   border: none;
+  border-radius: 50%;
+  font-weight: 400;
   font-size: 0.875rem;
-  background: #999696;
-  color: #f7f5f5;
-  padding: 0.875em 1.5em;
-  border-radius: 5px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 0.875em;
+  background: none;
 }
 
 .preview {
-  width: 15.625em;
-  height: 15.625em;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 400px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin: 0 auto;
 }
 
-@media (max-width: 240px) {
+.button {
+  color: #fff;
+  background: #0095f6;
+  font-weigth: 700;
+  font-size: 0.875rem;
+  max-width: 180px;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  cursor: pointer;
+  margin-top: 1em;
+  border: none;
+  margin: 1em auto;
+}
+
+.fileInput {
+  display: none;
+}
+
+@media (max-width: 480px) {
   .preview {
-    width: 9.375em;
-    height: 9.375em;
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 380px) {
+  .preview {
+    max-width: 200px;
+    max-height: 200px;
   }
 }
