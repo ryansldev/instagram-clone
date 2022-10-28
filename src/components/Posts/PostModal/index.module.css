@@ -101,6 +101,7 @@
   padding: 1em 2em;
   max-height: 450px;
   overflow: auto;
+  border-top: 1px solid #efefef;
 }
 
 .comment {
