@@ -34,7 +34,7 @@ const PostModal: FC<PostModalProps> = ({ post, isPostModalOpen, setIsPostModalOp
                 <strong>{post?.username}</strong><br/>
                 <span>{post?.title}</span>
               </div>
-              { post?.comments && 
+              { post?.comments && post?.comments[0].content &&
                 <div className={styles.comments}>
                   {post?.comments.map((comment, key) => (
                     <div className={styles.comment} key={key}>
