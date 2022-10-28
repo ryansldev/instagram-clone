@@ -1,4 +1,6 @@
 import { Dialog } from "@headlessui/react";
+import moment from "moment";
+import Image from "next/image";
 import type { FC } from "react";
 import { PostType } from "../../../@types/Post";
 import PostInfos from "../PostInfos";
@@ -15,7 +17,7 @@ const PostModal: FC<PostModalProps> = ({ post, isPostModalOpen, setIsPostModalOp
     document.querySelector(`#post-${post.id}`)?.scrollIntoView();
     setIsPostModalOpen(false);
   }
-  
+
   return (
     <>
       <Dialog className={styles.modal} open={isPostModalOpen} onClose={handleClose}>
@@ -28,11 +30,30 @@ const PostModal: FC<PostModalProps> = ({ post, isPostModalOpen, setIsPostModalOp
           ></div>
           <div className={styles.content}>
             <div>
-              <strong>{post?.username}</strong><br/>
-              <span>{post?.title}</span>
+              <div className={styles.basicContent}>
+                <strong>{post?.username}</strong><br/>
+                <span>{post?.title}</span>
+              </div>
+              { post?.comments && 
+                <div className={styles.comments}>
+                  {post?.comments.map((comment, key) => (
+                    <div className={styles.comment} key={key}>
+                      {comment.content &&
+                        <>
+                          <Image src="/assets/user.png" alt="Usuário Anônimo" height={28} width={28} />
+                          <div className={styles.commentContent}>
+                            <span><strong>anônimo</strong> {comment.content}</span>
+                            <span className={styles.commentedAt}>
+                              HÁ {moment(new Date(comment?.commentedAt)).fromNow(true).toUpperCase()}
+                            </span>
+                          </div>
+                        </>
+                      }
+                    </div>
+                  ))}
+                </div>
+              }
             </div>
-
-            <div></div>
 
             <div>
               <PostInfos post={post} postModal />

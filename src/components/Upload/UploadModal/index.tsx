@@ -58,6 +58,10 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
   const onSubmit = async (e: any) => {
     e.preventDefault();
     const { author, title } = e.target;
+    if(!author.value) {
+      alert("Você colocar seu nome no post!");
+      return;
+    }
     const username = getUsername(author.value.trim());
 
     const postRef = ref(database, "posts");
@@ -70,7 +74,8 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
       username,
       photo,
       likes: 0,
-      postedAt: new Date(),
+      postedAt: new Date().toString(),
+      comments: [""],
     }
     const updates: any = {};
     updates[newPostKey] = postData;

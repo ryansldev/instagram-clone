@@ -1,5 +1,5 @@
 type Comment = {
-  author: string;
+  commentedAt: Date | string;
   content: string;
 }
 

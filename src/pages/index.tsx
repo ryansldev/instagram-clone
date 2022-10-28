@@ -22,6 +22,7 @@ export default function Home() {
             photo: value.photo,
             likes: value.likes,
             postedAt: value.postedAt,
+            comments: value.comments,
           }
         });
 
