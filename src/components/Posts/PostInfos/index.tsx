@@ -19,6 +19,13 @@ const PostInfos: FC<PostInfosProps> = ({ post, handleViewPost, postModal = false
     set(postRef, newPost);
   }
 
+  const clearFields = (event: any) => {
+    // we have to convert event.target to array
+    // we use from method to convert event.target to array
+    // after that we will use forEach function to go through every input to clear it
+    Array.from(event.target).forEach((e: any) => (e.value = ""));
+  }
+
   const sendComment = (e: any) => {
     e.preventDefault();
     const { comment } = e.target;
@@ -27,12 +34,14 @@ const PostInfos: FC<PostInfosProps> = ({ post, handleViewPost, postModal = false
     newComments.push({
       commentedAt: new Date().toString(),
       content: comment.value,
+      likes: 0,
     });
     const newPost = {
       ...post,
       comments: newComments,
     }
     set(postRef, newPost);
+    clearFields(e);
   }
 
   return (

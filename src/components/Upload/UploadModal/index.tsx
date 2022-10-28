@@ -6,7 +6,7 @@ import Image from "next/image";
 import { getUsername } from "../../../utils/getUsername";
 import { database, push, ref, update, child } from "../../../services/firebase";
 import FilesIcon from "./FilesIcon";
-import XIcon from "../../XIcon";
+import XIcon from "./XIcon";
 
 type UploadModalProps = {
   isUploadModalOpen: boolean;

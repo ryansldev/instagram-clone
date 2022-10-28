@@ -1,0 +1,38 @@
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.125em;
+  gap: 1.125em;
+}
+
+.comment img {
+  border-radius: 50%;
+}
+
+.commentContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.commentContent div {
+  display: flex;
+  align-items: flex-end;
+  gap: 1em;
+}
+
+.comment span {
+  font-size: 0.875rem;
+  color: #262626;
+}
+
+.commentedAt {
+  font-size: 0.7em !important;
+  color: #8e8e8e !important;
+}
+
+.likeButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

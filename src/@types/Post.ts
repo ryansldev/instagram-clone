@@ -1,6 +1,7 @@
-type Comment = {
+export type Comment = {
   commentedAt: Date | string;
   content: string;
+  likes: number;
 }
 
 export type PostType = {

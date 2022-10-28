@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { FC } from "react";
 import { PostType } from "../../../@types/Post";
 import PostInfos from "../PostInfos";
+import Comments from "./Comments";
 import styles from "./index.module.css";
 
 type PostModalProps = {
@@ -34,25 +35,7 @@ const PostModal: FC<PostModalProps> = ({ post, isPostModalOpen, setIsPostModalOp
                 <strong>{post?.username}</strong><br/>
                 <span>{post?.title}</span>
               </div>
-              { post?.comments && post?.comments.length > 0 &&
-                <div className={styles.comments}>
-                  {post?.comments.map((comment, key) => (
-                    <div className={styles.comment} key={key}>
-                      {comment.content &&
-                        <>
-                          <Image src="/assets/user.png" alt="Usuário Anônimo" height={28} width={28} />
-                          <div className={styles.commentContent}>
-                            <span><strong>anônimo</strong> {comment.content}</span>
-                            <span className={styles.commentedAt}>
-                              HÁ {moment(new Date(comment?.commentedAt)).fromNow(true).toUpperCase()}
-                            </span>
-                          </div>
-                        </>
-                      }
-                    </div>
-                  ))}
-                </div>
-              }
+              <Comments post={post} />
             </div>
 
             <div>
