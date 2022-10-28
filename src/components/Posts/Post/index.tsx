@@ -1,41 +1,49 @@
 import { FC, useState } from "react";
 import styles from "./index.module.css";
-import LikeIcon from "../../LikeIcon";
 import { PostType } from "../../../@types/Post";
-import { database, ref, set } from "../../../services/firebase";
+import PostInfos from "../PostInfos";
+import PostModal from "../PostModal";
 
-const Post: FC<{ post: PostType }> = ({ post }) => {
-  const handleLike = () => {
-    const postRef = ref(database, `posts/${post.id}`);
-    const newPost = {...post, likes: post.likes + 1}
-    set(postRef, newPost);
-  }
+type PostProps = {
+  post: PostType;
+}
+
+const Post: FC<PostProps> = ({ post }) => {
+  const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false);
+
+  const handleViewPost = () => {
+    document.querySelector("#header")?.scrollIntoView();
+    setIsPostModalOpen(true);
+  };
 
   return (
-    <article className={styles.article}>
-      <div className={styles.author}>
-        <span>Postado por <strong>{post.author}</strong></span>
-      </div>
-      <div
-        id={`image-${post.id}`}
-        className={styles.image}
-        style={{
-          backgroundImage: `url(${post.photo})`
-        }}
-      ></div>
-      <div className={styles.content}>
-        <div className={styles.actions}>
-          <button type="button" onClick={handleLike}>
-            <LikeIcon isLiked={post.likes > 0} />
-          </button>
-          <span>{post.likes} {post.likes > 1 || post.likes === 0 ? "Curtidas" : "Curtida" }</span>
+    <>
+      <article className={styles.article} id={`post-${post.id}`}>
+        <div className={styles.author}>
+          <span>Postado por <strong>{post.author}</strong></span>
         </div>
-        <div className={styles.title}>
-          <strong>{post.username}</strong>
-          <span>{post.title}</span>
+        <div
+          id={`image-${post.id}`}
+          className={styles.image}
+          style={{
+            backgroundImage: `url(${post.photo})`
+          }}
+        ></div>
+        <div className={styles.content}>
+          <PostInfos
+            post={post}
+            handleViewPost={handleViewPost}
+          />
         </div>
-      </div>
-    </article>
+      </article>
+
+      <PostModal
+        key={post?.id}
+        isPostModalOpen={isPostModalOpen}
+        setIsPostModalOpen={setIsPostModalOpen}
+        post={post}
+      />
+    </>
   )
 };
 

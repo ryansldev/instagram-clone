@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 
 const Header = () => {
   return (
-    <header className={styles.header}>
+    <header className={styles.header} id="header">
       <Link passHref href="/">
         <InstagramLogo />
       </Link>

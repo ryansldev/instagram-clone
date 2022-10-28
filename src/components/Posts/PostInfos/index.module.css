@@ -1,0 +1,21 @@
+.actions {
+  display: flex;
+}
+
+.actions button {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.title {
+  margin-top: 0.5em;
+  display: flex;
+  gap: 0.3em;
+  flex-wrap: wrap;
+}
+
+.postedAt {
+  font-size: 0.7em;
+  color: #8e8e8e;
+}

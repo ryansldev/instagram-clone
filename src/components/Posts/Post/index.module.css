@@ -23,24 +23,6 @@
   padding: 0 0.5em;
 }
 
-.content .title {
-  margin-top: 0.5em;
-  display: flex;
-  gap: 0.3em;
-  flex-wrap: wrap;
-}
-
-.actions {
-  display: flex;
-  gap: 5px;
-}
-
-.actions button {
-  background: transparent;
-  cursor: pointer;
-  border: none;
-}
-
 .image {
   background-repeat: no-repeat;
   background-position: center;
