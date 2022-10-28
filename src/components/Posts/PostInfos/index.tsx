@@ -16,7 +16,6 @@ const PostInfos: FC<PostInfosProps> = ({ post, handleViewPost, postModal = false
   const handleLike = () => {
     const postRef = ref(database, `posts/${post.id}`);
     const newPost = {...post, likes: post.likes + 1}
-    console.log(newPost);
     set(postRef, newPost);
   }
 
