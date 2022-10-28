@@ -41,6 +41,12 @@
   }
 }
 
+@media (max-width: 720px) {
+  .container {
+    max-height: 75vh;
+  }
+}
+
 @media (max-width: 600px) {
   .container {
     max-width: 85vw;
