@@ -31,7 +31,7 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
                 <span className={styles.commentedAt}>
                   HÁ {moment(new Date(comment?.commentedAt)).fromNow(true).toUpperCase()}
                 </span>
-                { comment.likes > 0 && <span>{comment.likes} {comment.likes > 1 ? "curtidas" : "curtida" }</span> }
+                { comment.likes > 0 && <span style={{ fontSize: "0.75rem" }}>{comment.likes} {comment.likes > 1 ? "curtidas" : "curtida" }</span> }
               </div>
             </div>
           </div>
