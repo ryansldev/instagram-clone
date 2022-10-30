@@ -6,7 +6,7 @@ import { database, ref, onValue } from "../services/firebase";
 
 export default function Home() {
   return (
-    <main>
+    <main style={{ marginTop: "100px" }}>
       <Head>
         <title>Instagram</title>
         <meta name="description" content="Instagram clone" />
