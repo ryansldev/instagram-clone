@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Dialog } from '@headlessui/react';
 import styles from "./index.module.css";
-import PlusIcon from "../../PlusIcon";
-import Image from "next/image";
 import { getUsername } from "../../../utils/getUsername";
 import { database, push, ref, update, child } from "../../../services/firebase";
 import FilesIcon from "./FilesIcon";
 import XIcon from "./XIcon";
 import { BackIcon } from "./BackIcon";
+import Cropper, { Area } from "react-easy-crop";
+import getCroppedImg from "../../../utils/cropImage";
 
 type UploadModalProps = {
   isUploadModalOpen: boolean;
@@ -17,6 +17,13 @@ type UploadModalProps = {
 const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModalOpen }) => {
   const [photo, setPhoto] = useState("");
   const [step, setStep] = useState(1);
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1);
+  const [rotation, setRotation] = useState(0)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
+  const [croppedPhoto, setCroppedPhoto] = useState<any>();
 
   const handleClose = () => {
     setStep(1);
@@ -59,6 +66,17 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
+    try {
+      const croppedImage = await getCroppedImg(
+        photo,
+        croppedAreaPixels,
+        rotation
+      )
+      setCroppedPhoto(croppedImage)
+    } catch (e) {
+      console.error(e)
+    }
+
     const { author, title } = e.target;
     if(!author.value) {
       alert("Você deve colocar seu nome no post!");
@@ -85,6 +103,10 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
     update(postRef, updates);
     handleClose();
   }
+
+  const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels)
+  }, [])
   
   return (
     <>
@@ -120,7 +142,18 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
                 <p>
                   Veja o preview da imagem
                 </p>
-                <div className={styles.preview} style={{ backgroundImage: `url(${photo})`}}></div>
+                <div style={{ position: "relative", height: "100%", width: "100%" }}>
+                  <Cropper
+                    image={photo}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1 / 1}
+                    onCropChange={setCrop}
+                    onRotationChange={setRotation}
+                    onCropComplete={onCropComplete}
+                    onZoomChange={setZoom}
+                  />
+                </div>
                 <button type="button" className={styles.button} onClick={() => setStep(step+1)}>Está perfeito</button>
               </section>
             }
