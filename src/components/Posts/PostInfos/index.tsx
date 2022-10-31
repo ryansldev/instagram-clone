@@ -35,6 +35,7 @@ const PostInfos: FC<PostInfosProps> = ({ post, handleViewPost, postModal = false
       commentedAt: new Date().toString(),
       content: comment.value,
       likes: 0,
+      answers: [],
     });
     const newPost = {
       ...post,

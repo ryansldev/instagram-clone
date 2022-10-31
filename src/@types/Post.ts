@@ -1,7 +1,14 @@
+export type AnswerType = {
+  likes: number;
+  answeredAt: Date | string;
+  content: string;
+}
+
 export type Comment = {
   commentedAt: Date | string;
   content: string;
   likes: number;
+  answers: AnswerType[];
 }
 
 export type PostType = {

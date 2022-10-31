@@ -1,6 +1,7 @@
 .answerPopoverPanel label {
   display: flex;
   gap: 0.75em;
+  margin-bottom: 1.5em;
 }
 
 .answerPopoverPanel input {

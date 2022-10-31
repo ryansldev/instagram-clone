@@ -1,32 +1,32 @@
-.comment {
+.answer {
   display: flex;
   align-items: flex-start;
   margin-bottom: 1.125em;
   gap: 1.125em;
 }
 
-.comment img {
+.answer img {
   border-radius: 50%;
 }
 
-.commentContent {
+.answerContent {
   display: flex;
   flex-direction: column;
   gap: 0.3em;
 }
 
-.commentContent div {
+.answerContent div {
   display: flex;
   align-items: flex-end;
   gap: 1em;
 }
 
-.comment span {
+.answer span {
   font-size: 0.875rem;
   color: #262626;
 }
 
-.commentedAt {
+.answeredAt {
   font-size: 0.7em !important;
   color: #8e8e8e !important;
 }
@@ -41,15 +41,5 @@
   border: none;
   background: transparent;
   color: #8e8e8e;
-  cursor: pointer;
-}
-
-.showAnswers {
-  border: none;
-  background: transparent;
-  text-align: left;
-  margin-top: 0.75em;
-  color: #8e8e8e;
-  font-size: 0.75rem;
   cursor: pointer;
 }

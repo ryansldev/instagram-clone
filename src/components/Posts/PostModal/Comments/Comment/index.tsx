@@ -6,7 +6,8 @@ import styles from "./index.module.css";
 import LikeIcon from "../../../../LikeIcon";
 import { database, ref, set } from "../../../../../services/firebase";
 import { Popover } from "@headlessui/react";
-import AnswerPopoverPanel from "./AnswerPopoverPanel";
+import AnswerPopoverPanel from "./AnswerPopoverPainel";
+import { Answers } from "./Answers";
 
 type CommentProps = {
   postId: string | undefined;
@@ -15,6 +16,7 @@ type CommentProps = {
 }
 
 const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
+  const [showAnswers, setShowAnswers] = useState(false);
   const handleLike = () => {
     const postRef = ref(database, `posts/${postId}/comments/${id}`);
     const newComment = {...comment, likes: comment.likes + 1}
@@ -36,6 +38,10 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
                 <Popover.Button className={styles.answerButton}>Responder</Popover.Button>
                 { comment.likes > 0 && <span style={{ fontSize: "0.75rem" }}>{comment.likes} {comment.likes > 1 ? "curtidas" : "curtida" }</span> }
               </div>
+
+              <button type="button" className={styles.showAnswers} onClick={() => setShowAnswers(!showAnswers)}>
+                ––– Ver respostas
+              </button>
             </div>
           </div>
 
@@ -45,7 +51,10 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
         </div>
       }
 
-      <AnswerPopoverPanel />
+      <AnswerPopoverPanel postId={postId} answers={comment?.answers} commentId={id} />
+      { showAnswers && (
+        <Answers postId={postId} answers={comment.answers} commentId={id} />
+      )}
     </Popover>
   )
 };
