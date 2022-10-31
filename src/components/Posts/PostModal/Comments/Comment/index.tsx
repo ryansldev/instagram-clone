@@ -5,6 +5,8 @@ import { Comment } from "../../../../../@types/Post";
 import styles from "./index.module.css";
 import LikeIcon from "../../../../LikeIcon";
 import { database, ref, set } from "../../../../../services/firebase";
+import { Popover } from "@headlessui/react";
+import AnswerPopoverPanel from "./AnswerPopoverPanel";
 
 type CommentProps = {
   postId: string | undefined;
@@ -20,7 +22,7 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
   };
 
   return (
-    <>
+    <Popover>
       {comment.content &&
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1em" }}>
           <div className={styles.comment}>
@@ -31,6 +33,7 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
                 <span className={styles.commentedAt}>
                   HÁ {moment(new Date(comment?.commentedAt)).fromNow(true).toUpperCase()}
                 </span>
+                <Popover.Button className={styles.answerButton}>Responder</Popover.Button>
                 { comment.likes > 0 && <span style={{ fontSize: "0.75rem" }}>{comment.likes} {comment.likes > 1 ? "curtidas" : "curtida" }</span> }
               </div>
             </div>
@@ -41,7 +44,9 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
           </button>
         </div>
       }
-    </>
+
+      <AnswerPopoverPanel />
+    </Popover>
   )
 };
 

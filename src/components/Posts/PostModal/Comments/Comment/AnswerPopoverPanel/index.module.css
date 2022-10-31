@@ -1,0 +1,19 @@
+.answerPopoverPanel label {
+  display: flex;
+  gap: 0.75em;
+}
+
+.answerPopoverPanel input {
+  border: 1px solid #dbdbdb;
+  padding: 0.5em 0.875em;
+  border-radius: 4px;
+  width: 100%;
+  outline: 0;
+}
+
+.answerPopoverPanel button {
+  border: none;
+  background: transparent;
+  color: #0095f6;
+  cursor: pointer;
+}
