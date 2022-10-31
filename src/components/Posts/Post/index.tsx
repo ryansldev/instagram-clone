@@ -12,7 +12,7 @@ const Post: FC<PostProps> = ({ post }) => {
   const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false);
 
   const handleViewPost = () => {
-    document.querySelector("#header")?.scrollIntoView();
+    document.querySelector("html")?.scrollIntoView();
     setIsPostModalOpen(true);
   };
 
