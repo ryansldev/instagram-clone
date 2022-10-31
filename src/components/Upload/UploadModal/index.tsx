@@ -7,6 +7,7 @@ import { getUsername } from "../../../utils/getUsername";
 import { database, push, ref, update, child } from "../../../services/firebase";
 import FilesIcon from "./FilesIcon";
 import XIcon from "./XIcon";
+import { BackIcon } from "./BackIcon";
 
 type UploadModalProps = {
   isUploadModalOpen: boolean;
@@ -90,6 +91,11 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
       <Dialog className={styles.modal} open={isUploadModalOpen} onClose={handleClose}>
         <Dialog.Panel className={styles.container}>
           <Dialog.Title style={{ display: "flex", justifyContent: "space-between", textAlign: "center", fontSize: "1.175rem", borderBottom: "1px solid #efefef", paddingBottom: "1.5em", color: "#262626", fontWeight: "500" }}>
+            {step > 1 &&
+              <button type="button" className={styles.backButton} onClick={() => setStep(step-1)}>
+                <BackIcon />
+              </button>
+            }
             Criar nova publicação
             <button type="button" className={styles.closeButton} onClick={handleClose}>
               <XIcon />

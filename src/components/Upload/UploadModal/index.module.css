@@ -141,3 +141,10 @@
     max-height: 200px;
   }
 }
+
+.backButton {
+  border: none;
+  background: transparent;
+  color: #8e8e8e;
+  cursor: pointer;
+}
