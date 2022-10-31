@@ -92,7 +92,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
       author: author.value.trim(),
       title: title.value.trim(),
       username,
-      photo,
+      photo: croppedPhoto,
       likes: 0,
       postedAt: new Date().toString(),
       comments: [""],
