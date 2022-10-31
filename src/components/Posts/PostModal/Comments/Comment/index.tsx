@@ -39,9 +39,11 @@ const Comment: FC<CommentProps> = ({ postId, comment, id }) => {
                 { comment.likes > 0 && <span style={{ fontSize: "0.75rem" }}>{comment.likes} {comment.likes > 1 ? "curtidas" : "curtida" }</span> }
               </div>
 
-              <button type="button" className={styles.showAnswers} onClick={() => setShowAnswers(!showAnswers)}>
-                ––– Ver respostas
-              </button>
+              { comment?.answers?.length > 0 &&
+                <button type="button" className={styles.showAnswers} onClick={() => setShowAnswers(!showAnswers)}>
+                  ––– Ver respostas({comment.answers.length})
+                </button>
+              }
             </div>
           </div>
 
