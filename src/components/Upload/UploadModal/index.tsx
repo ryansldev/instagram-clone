@@ -21,7 +21,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>()
 
   const [croppedPhoto, setCroppedPhoto] = useState<any>();
 
@@ -66,17 +66,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
-    try {
-      const croppedImage = await getCroppedImg(
-        photo,
-        croppedAreaPixels,
-        rotation
-      )
-      setCroppedPhoto(croppedImage)
-    } catch (e) {
-      console.error(e)
-    }
-
+    setCroppedImage();
     const { author, title } = e.target;
     if(!author.value) {
       alert("Você deve colocar seu nome no post!");
@@ -107,6 +97,19 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
   const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
+
+  const setCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        photo,
+        croppedAreaPixels,
+        rotation
+      )
+      setCroppedPhoto(croppedImage)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [croppedAreaPixels, rotation])
   
   return (
     <>
@@ -133,7 +136,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
                 <span>Arraste os fotos e os vídeos aqui</span>
                 <label className={styles.button}>
                   Selecionar sua foto/vídeo
-                  <input className={styles.fileInput} type="file" accept="image/*" onChange={changePhoto} />
+                  <input className={styles.fileInput} type="file" accept="image/jpeg, image/png" onChange={changePhoto} />
                 </label>
               </section>
             }
