@@ -15,6 +15,12 @@
   flex-wrap: wrap;
 }
 
+.title span {
+  white-space: nowrap;                  
+  overflow: hidden; /* "overflow" value must be different from "visible" */
+  text-overflow: ellipsis;
+}
+
 .postedAt {
   font-size: 0.7em;
   color: #8e8e8e;

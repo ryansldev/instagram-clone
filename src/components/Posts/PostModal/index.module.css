@@ -11,10 +11,9 @@
 
 .container {
   width: 100%;
-  max-width: 70vw;
+  max-width: 80vw;
   height: 100%;
   max-height: 85vh;
-  border-radius: .8vw;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   overflow-y: scroll;
@@ -29,33 +28,76 @@
   background-repeat: no-repeat;
   background-position: center;
   background-color: #0a0a0a;
-  background-size: cover;
+  background-size: contain;
 }
 
-@media (max-width: 1100px) {
+.basicContent span { 
+  display:block;
+  width: 500px;
+  word-wrap: break-word;
+}
+
+@media (max-width: 1400px) {
+  .basicContent span {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-height: 75vh;
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 1015px) {
+  .container {
+    max-height: 90vh;
+    max-width: 60vw;
+  }
+
   .image {
-    background-size: contain;
     min-width: 100%;
     width: 100%;
     height: 50%;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .container {
-    max-height: 75vh;
+    max-height: 90vh;
+    max-width: 80vw;
   }
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .container {
     max-width: 85vw;
   }
-}
+} */
 
 @media (max-width: 480px) {
   .container {
-    max-width: 93vw;
+    max-width: 85vw;
+    max-height: 90vh;
+  }
+
+  .basicContent span {
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    max-width: 90vw;
+    max-height: 83vh;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    max-width: 95vw;
+    max-height: 76vh;
   }
 }
 
