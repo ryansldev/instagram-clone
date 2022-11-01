@@ -109,6 +109,8 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
     } catch (e) {
       console.error(e)
     }
+
+    setStep(step+1);
   }, [croppedAreaPixels, rotation])
   
   return (
@@ -158,7 +160,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
                     onMediaLoaded={setCroppedImage}
                   />
                 </div>
-                <button type="button" className={styles.button} onClick={() => setStep(step+1)}>Está perfeito</button>
+                <button type="button" className={styles.button} onClick={setCroppedImage}>Está perfeito</button>
               </section>
             }
             { step === 3 &&
