@@ -155,6 +155,7 @@ const UploadModal: FC<UploadModalProps> = ({ isUploadModalOpen, setIsUploadModal
                     onRotationChange={setRotation}
                     onCropComplete={onCropComplete}
                     onZoomChange={setZoom}
+                    onMediaLoaded={setCroppedImage}
                   />
                 </div>
                 <button type="button" className={styles.button} onClick={() => setStep(step+1)}>Está perfeito</button>
