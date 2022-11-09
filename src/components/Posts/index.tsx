@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import { PostType } from "../../@types/Post";
 import Post from "./Post";
 import styles from "./index.module.css";
-import PostModal from "./PostModal";
 import { database, ref, onValue } from "../../services/firebase";
 
 type FirebasePosts = Record<string, PostType>;
