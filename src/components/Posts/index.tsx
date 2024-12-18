@@ -26,7 +26,14 @@ const Posts: FC = () => {
           }
         });
 
-        setPosts(parsedData);
+        // Sort the posts in descending order based on `postedAt`
+        const sortedData = parsedData.sort((a, b) => {
+          const dateA = new Date(a.postedAt).getTime();
+          const dateB = new Date(b.postedAt).getTime();
+          return dateB - dateA; // Descending order
+        });
+
+        setPosts(sortedData);
       }
     });
   }, []);
